@@ -8,8 +8,9 @@ export type Action =
 export function tasksReducer(state: Task[], action: Action): Task[] {
   switch (action.type) {
     case 'add': {
-      state.push(action.task);
-      return [...state];
+      const newState = [...state];
+      newState.push(action.task);
+      return newState;
     }
     case 'toggle': {
       return [...state].map((t) =>
