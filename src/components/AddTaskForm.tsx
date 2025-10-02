@@ -27,6 +27,7 @@ export default function AddTaskForm({ onAdd }: { onAdd: (t: Task) => void }) {
           <label htmlFor={id + '-title'}>Title</label>
           <input
             id={id + '-title'}
+            data-testid='task-title-input'
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder='Pay invoices'
@@ -37,6 +38,7 @@ export default function AddTaskForm({ onAdd }: { onAdd: (t: Task) => void }) {
           <input
             id={id + '-due'}
             type='date'
+            data-testid='task-date-input'
             value={due}
             onChange={(e) => setDue(e.target.value)}
           />

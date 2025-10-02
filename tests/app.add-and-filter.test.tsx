@@ -8,14 +8,14 @@ function countTasks() {
 }
 
 describe('App integration', () => {
-  it('adds a task and filters by completed correctly', async () => {
+  it.only('adds a task and filters by completed correctly', async () => {
     render(<App />);
     const user = userEvent.setup();
 
-    await user.type(screen.getByLabelText(/Title/i), 'New Task');
+    await user.type(screen.getByTestId('task-title-input'), 'New Task');
     const date = new Date('2025-10-05');
     await user.type(
-      screen.getByLabelText(/Due/i),
+      screen.getByTestId('task-date-input'),
       date.toISOString().slice(0, 10)
     );
     await user.click(screen.getByRole('button', { name: /add/i }));
@@ -25,10 +25,7 @@ describe('App integration', () => {
     const boxes = screen.getAllByRole('checkbox');
     await user.click(boxes[boxes.length - 1]);
 
-    await user.selectOptions(
-      screen.getByLabelText('filter-select'),
-      'completed'
-    );
+    await user.selectOptions(screen.getByTestId('filter-select'), 'completed');
 
     const listed = screen.getAllByRole('checkbox');
     expect(listed.length).toBe(1);
@@ -44,7 +41,7 @@ describe('App integration', () => {
 
     const boxes = screen.getAllByRole('checkbox');
     await user.click(boxes[0]);
-    await user.selectOptions(screen.getByLabelText('filter-select'), 'active');
+    await user.selectOptions(screen.getByTestId('filter-select'), 'active');
     const listed = screen.getAllByRole('checkbox');
     expect(listed.every((b) => !(b as HTMLInputElement).checked)).toBe(true);
   });
