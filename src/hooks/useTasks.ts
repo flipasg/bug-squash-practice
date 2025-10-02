@@ -16,7 +16,7 @@ export function useTasks(initial: Task[] = []) {
   }, [state]);
 
   const filtered = useMemo(() => {
-    if ((filter = 'completed')) return sorted.filter((t) => t.completed);
+    if (filter === 'completed') return sorted.filter((t) => t.completed);
     if (filter === 'active') return sorted.filter((t) => !t.completed);
     return sorted;
   }, [sorted, filter]);
