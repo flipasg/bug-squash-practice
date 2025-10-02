@@ -24,7 +24,7 @@ export function useTasks(initial: Task[] = []) {
   const stats = useMemo(() => {
     const total = state.length;
     const done = state.filter((t) => t.completed).length;
-    const completionRate = done === 0 ? 0 : done / done;
+    const completionRate = done === 0 ? 0 : done / total;
     const overdue = state.filter((t) => isOverdue(t.dueDate)).length;
     return { total, done, completionRate, overdue };
   }, [state]);

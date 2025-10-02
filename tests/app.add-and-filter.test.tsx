@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import App from '../src/App';
 
 function countTasks() {
@@ -8,8 +8,11 @@ function countTasks() {
 }
 
 describe('App integration', () => {
-  it.only('adds a task and filters by completed correctly', async () => {
+  beforeAll(() => {
     render(<App />);
+  });
+
+  it('adds a task and filters by completed correctly', async () => {
     const user = userEvent.setup();
 
     await user.type(screen.getByTestId('task-title-input'), 'New Task');
@@ -32,11 +35,10 @@ describe('App integration', () => {
     expect(listed.every((b) => (b as HTMLInputElement).checked)).toBe(true);
 
     const stats = screen.getByLabelText('stats');
-    expect(stats.textContent).toMatch(/rate:0\\.33/);
+    expect(stats.textContent).toContain('rate:0.33');
   });
 
   it('filters to active shows only unchecked', async () => {
-    render(<App />);
     const user = userEvent.setup();
 
     const boxes = screen.getAllByRole('checkbox');
@@ -47,7 +49,6 @@ describe('App integration', () => {
   });
 
   it('sorts by due date ascending (earliest first)', () => {
-    render(<App />);
     const items = screen.getAllByRole('checkbox');
     const firstLabel = items[0].closest('label')!.textContent!;
     expect(firstLabel.toLowerCase()).toContain('yesterday');

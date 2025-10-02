@@ -31,7 +31,6 @@ export default function App() {
           <label htmlFor='filter'>Filter</label>
           <select
             id='filter'
-            aria-label='filter-select'
             data-testid='filter-select'
             value={filter}
             onChange={(e) => setFilter(e.target.value as any)}
