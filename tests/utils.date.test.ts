@@ -5,8 +5,8 @@ describe('date utils', () => {
   it('startOfToday is midnight', () => {
     const d = new Date('2025-10-01T15:30:00Z');
     const s = startOfToday(d);
-    expect(s.getHours()).toBe(0);
-    expect(s.getMinutes()).toBe(0);
+    expect(s.getUTCHours()).toBe(0);
+    expect(s.getUTCMinutes()).toBe(0);
   });
 
   it('task due today is not overdue', () => {
@@ -17,6 +17,7 @@ describe('date utils', () => {
 
   it('task due yesterday is overdue', () => {
     const now = new Date('2025-10-01T10:00:00Z');
+
     const dueYesterday = new Date('2025-09-30T23:59:00Z').toISOString();
     expect(isOverdue(dueYesterday, now)).toBe(true);
   });

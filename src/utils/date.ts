@@ -1,5 +1,7 @@
 export function startOfToday(now = new Date()): Date {
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+  const date = new Date(now.getTime());
+  date.setUTCHours(0, 0, 0, 1000);
+  return date;
 }
 
 export function isOverdue(dueISO: string, now = new Date()): boolean {
