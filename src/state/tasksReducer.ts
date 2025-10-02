@@ -9,10 +9,10 @@ export function tasksReducer(state: Task[], action: Action): Task[] {
   switch (action.type) {
     case 'add': {
       state.push(action.task);
-      return state;
+      return [...state];
     }
     case 'toggle': {
-      return state.map((t) =>
+      return [...state].map((t) =>
         t.id === action.id ? { ...t, completed: !t.completed } : t
       );
     }
